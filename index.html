@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>✨ Magic Page with 200 Quotes ✨</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  #quote {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    z-index: 10;
+    padding: 0 20px;
+  }
+</style>
+</head>
+<body>
+
+<div id="quote">✨ Click anywhere for magic ✨</div>
+<canvas id="canvas"></canvas>
+
+<script>
+  // Background stars
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+  let stars = Array(200).fill().map(() => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 1.5,
+    d: Math.random() * 1.5
+  }));
+
+  function drawStars() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "white";
+    stars.forEach(s => {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    moveStars();
+  }
+
+  function moveStars() {
+    stars.forEach(s => {
+      s.y += s.d;
+      if (s.y > h) {
+        s.y = 0;
+        s.x = Math.random() * w;
+      }
+    });
+  }
+
+  setInterval(drawStars, 30);
+  window.onresize = () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  };
+
+  // 200 quotes array
+  const quotes = [
+    "🚀 Reach for the stars!",
+    "🌟 Shine bright like a diamond.",
+    "💡 Think different.",
+    "🔥 Be unstoppable.",
+    "🎯 Stay focused and never give up.",
+    "😎 You are amazing!",
+    "🌈 Every day is a new beginning.",
+    "✨ Believe in yourself.",
+    "💫 Make your dreams happen.",
+    "🌻 Happiness is a choice.",
+    "🌙 Dream big, work hard.",
+    "🌺 Life is beautiful.",
+    "⚡ Energy flows where attention goes.",
+    "🎉 Celebrate small victories.",
+    "🌍 Change the world with kindness.",
+    "🌿 Grow through what you go through.",
+    "🌊 Let your worries drift away.",
+    "🍀 Luck favors the brave.",
+    "🎵 Music heals the soul.",
+    "📚 Knowledge is power.",
+    "🌞 Start each day with gratitude.",
+    "🦋 Transform your life with positivity.",
+    "🌻 Be the reason someone smiles today.",
+    "💪 Strength grows in the moments you think you can't go on.",
+    "🌟 Create your own sunshine.",
+    "🔥 Passion fuels success.",
+    "🎯 Focus on progress, not perfection.",
+    "🌈 Color your world with hope.",
+    "🌌 Explore the universe within you.",
+    "🍃 Breathe deeply and let go.",
+    "🌙 Let your dreams light your path.",
+    "⚡ Believe in miracles.",
+    "🌻 Be kind, always.",
+    "💡 Bright ideas come from brave minds.",
+    "🎉 Life is a party, celebrate it.",
+    "🌍 Together we are stronger.",
+    "🍀 Fortune favors the bold.",
+    "🎵 Let the music move you.",
+    "📚 Never stop learning.",
+    "🌞 Radiate positivity.",
+    "🦋 Change is beautiful.",
+    "🌻 Happiness blooms from within.",
+    "💪 Keep pushing forward.",
+    "🌟 Stars can't shine without darkness.",
+    "🔥 Fuel your fire.",
+    "🎯 Aim high, achieve higher.",
+    "🌈 Embrace every color of life.",
+    "🌌 Dream without limits.",
+    "🍃 Find peace in nature.",
+    "🌙 Sleep well, dream well.",
+    "⚡ Charge your energy.",
+    "🌻 Love more, worry less.",
+    "💡 Innovate and inspire.",
+    "🎉 Celebrate the journey.",
+    "🌍 Make a difference.",
+    "🍀 Be fearless.",
+    "🎵 Dance like nobody's watching.",
+    "📚 Wisdom is priceless.",
+    "🌞 Smile often.",
+    "🦋 Embrace your transformation.",
+    "🌻 Spread kindness everywhere.",
+    "💪 Courage conquers all.",
+    "🌟 Shine on.",
+    "🔥 Keep the flame alive.",
+    "🎯 Success is yours.",
+    "🌈 Paint your dreams.",
+    "🌌 Reach beyond the stars.",
+    "🍃 Calm your mind.",
+    "🌙 Follow your heart.",
+    "⚡ Spark your creativity.",
+    "🌻 Choose joy.",
+    "💡 Think big.",
+    "🎉 Live fully.",
+    "🌍 Care deeply.",
+    "🍀 Take chances.",
+    "🎵 Sing your song.",
+    "📚 Grow daily.",
+    "🌞 Be grateful.",
+    "🦋 Fly free.",
+    "🌻 Give love.",
+    "💪 Stay strong.",
+    "🌟 Believe in magic.",
+    "🔥 Ignite passion.",
+    "🎯 Hit your target.",
+    "🌈 See beauty everywhere.",
+    "🌌 Explore endlessly.",
+    "🍃 Let go.",
+    "🌙 Dream often.",
+    "⚡ Power up.",
+    "🌻 Be happy.",
+    "💡 Create constantly.",
+    "🎉 Enjoy life.",
+    "🌍 Help others.",
+    "🍀 Be bold.",
+    "🎵 Feel the rhythm.",
+    "📚 Learn more.",
+    "🌞 Shine bright.",
+    "🦋 Change yourself.",
+    "🌻 Love deeply.",
+    "💪 Overcome challenges.",
+    "🌟 Sparkle every day.",
+    "🔥 Keep going.",
+    "🎯 Stay focused.",
+    "🌈 Brighten the world.",
+    "🌌 Reach high.",
+    "🍃 Relax and recharge.",
+    "🌙 Believe deeply.",
+    "⚡ Energize yourself.",
+    "🌻 Laugh often.",
+    "💡 Dream big.",
+    "🎉 Celebrate today.",
+    "🌍 Inspire others.",
+    "🍀 Take risks.",
+    "🎵 Move your body.",
+    "📚 Read daily.",
+    "🌞 Enjoy sunshine.",
+    "🦋 Embrace change.",
+    "🌻 Spread joy.",
+    "💪 Fight fear.",
+    "🌟 Light up your life.",
+    "🔥 Keep the spark alive.",
+    "🎯 Achieve greatness.",
+    "🌈 Love yourself.",
+    "🌌 Discover new horizons.",
+    "🍃 Find calm.",
+    "🌙 Wish upon stars.",
+    "⚡ Recharge your spirit.",
+    "🌻 Stay positive.",
+    "💡 Imagine more.",
+    "🎉 Smile big.",
+    "🌍 Serve others.",
+    "🍀 Be courageous.",
+    "🎵 Sing loud.",
+    "📚 Expand your mind.",
+    "🌞 Greet the day.",
+    "🦋 Embrace growth.",
+    "🌻 Offer kindness.",
+    "💪 Face challenges.",
+    "🌟 Believe in yourself.",
+    "🔥 Keep dreaming.",
+    "🎯 Reach your goals.",
+    "🌈 Find happiness.",
+    "🌌 Chase your dreams.",
+    "🍃 Take deep breaths.",
+    "🌙 Find peace.",
+    "⚡ Be unstoppable.",
+    "🌻 Shine your light.",
+    "💡 Be innovative.",
+    "🎉 Live with joy.",
+    "🌍 Make it happen.",
+    "🍀 Be adventurous.",
+    "🎵 Feel alive.",
+    "📚 Seek knowledge.",
+    "🌞 Spread warmth.",
+    "🦋 Transform daily.",
+    "🌻 Live with love.",
+    "💪 Stand tall.",
+    "🌟 Let your light shine.",
+    "🔥 Burn bright.",
+    "🎯 Keep aiming.",
+    "🌈 See the good.",
+    "🌌 Reach your potential.",
+    "🍃 Relax often.",
+    "🌙 Dream with passion.",
+    "⚡ Stay energized.",
+    "🌻 Celebrate life."
+  ];
+
+  document.body.addEventListener("click", e => {
+    const q = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById("quote").innerText = q;
+    explode(e.pageX, e.pageY);
+  });
+
+  function explode(x, y) {
+    for (let i = 0; i < 20; i++) {
+      const div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.left = x + "px";
+      div.style.top = y + "px";
+      div.style.width = div.style.height = "5px";
+      div.style.background = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+      div.style.borderRadius = "50%";
+      document.body.appendChild(div);
+      const angle = Math.random() * 2 * Math.PI;
+      const dist = Math.random() * 100;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      div.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        { transform: `translate(${dx}px,${dy}px)`, opacity: 0 }
+      ], {
+        duration: 1000,
+        easing: "ease-out"
+      });
+      setTimeout(() => div.remove(), 1000);
+    }
+  }
+</script>
+
+</body>
+</html>
